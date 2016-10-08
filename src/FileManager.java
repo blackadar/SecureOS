@@ -17,14 +17,13 @@ public class FileManager {
 
     public static void addFile(String pathName){
         String fileType = Identify.identifyFileType(pathName);
-        System.out.println(fileType);
         fileList.add(new File(pathName));
 
         if(fileType.equals("doc") || fileType.equals("docx") || fileType.equals("xls") || fileType.equals("xlsx") || fileType.equals("mp3") || fileType.equals("mp4") || fileType.equals("jpg") || fileType.equals("png") || fileType.equals("mov") || fileType.equals("ppt") || fileType.equals("pptx")){
             documentList.add(fileList.get(fileCount)); //Adds the file to documentList if its type is document
         }
 
-        else if(fileType.equals("exe")){
+        else if(fileType.equals("lnk")){
             programList.add(fileList.get(fileCount)); //Adds the file to programList if its type is program
         }
 
@@ -37,6 +36,8 @@ public class FileManager {
         }
 
         fileCount++;
+
+        System.out.println(fileList.get(fileCount - 1));
 
     }
 
