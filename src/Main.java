@@ -11,6 +11,7 @@ public class Main {
     public static void main(String args[]) {
         FileSearch.findFiles();
         //TEST VARIABLES
+        /*
         File program = new File("C:\\Windows\\system32\\mspaint.exe");
         File program1 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program1.exe");
         File program2 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program2.exe");
@@ -48,9 +49,9 @@ public class Main {
         all.add(program8);
         all.add(online);
         all.add(document);
-
+*/
         //END TEST VARIABLES
-        SecurOSGui myGui = new SecurOSGui(programs, onlines, documents, all);
+        SecurOSGui myGui = new SecurOSGui(FileManager.programList, FileManager.onlineList, FileManager.documentList, FileManager.fileList);
     }
 }
 

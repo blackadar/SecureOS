@@ -256,7 +256,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+            if(cur.mes.toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.mes.toUpperCase())){
                 searched.add(cur);
                 count++;
             }
@@ -282,6 +282,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainbar.setLayout(mainmanage);
 
         for(ItemButton cur : searched) {
+            String modName = "";
+            for(char c : cur.mes.toCharArray()){
+                if(c == '.'){
+                    break;
+                }
+                modName += c;
+            }
+            System.out.println("added: " + cur.mes);
+            System.out.println("added: " + modName);
+            cur.setLabel(modName); //DANGER
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
@@ -301,6 +311,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
      * Sets mode to programs
      */
     public void programsMode(){
+
         //rebuild main pane
         mainbar.removeAll();
         try {
@@ -312,7 +323,18 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainbar.setLayout(mainmanage);
 
         for(ItemButton cur : this.programs) {
+            //System.out.println("added: " + cur.mes);
+            //test
+            String modName = "";
+            for(char c : cur.mes.toCharArray()){
+                if(c == '.'){
+                    break;
+                }
+                modName += c;
+            }
             System.out.println("added: " + cur.mes);
+            System.out.println("added: " + modName);
+            cur.setLabel(modName); //DANGER
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
@@ -345,6 +367,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
 
         for(ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
+            String modName = "";
+            for(char c : cur.mes.toCharArray()){
+                if(c == '.'){
+                    break;
+                }
+                modName += c;
+            }
+            System.out.println("added: " + cur.mes);
+            System.out.println("added: " + modName);
+            cur.setLabel(modName); //DANGER
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
@@ -377,6 +409,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
 
         for(ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
+            String modName = "";
+            for(char c : cur.mes.toCharArray()){
+                if(c == '.'){
+                    break;
+                }
+                modName += c;
+            }
+            System.out.println("added: " + cur.mes);
+            System.out.println("added: " + modName);
+            cur.setLabel(modName); //DANGER
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
@@ -409,6 +451,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
 
         for(ItemButton cur : this.all) {
             System.out.println("added: " + cur.mes);
+            String modName = "";
+            for(char c : cur.mes.toCharArray()){
+                if(c == '.'){
+                    break;
+                }
+                modName += c;
+            }
+            System.out.println("added: " + cur.mes);
+            System.out.println("added: " + modName);
+            cur.setLabel(modName); //DANGER
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
