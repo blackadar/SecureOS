@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.io.*;
 
 
-public class SecurOSGui extends JFrame implements ActionListener {
+public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
     ArrayList <ItemButton> programs;
     ArrayList <ItemButton> onlines;
     ArrayList <ItemButton> documents;
     ArrayList <ItemButton> all;
     ArrayList <JButton> cats;
 
+    JTextField searchbar;
     JPanel catbar;
     JPanel mainbar;
 
@@ -40,10 +41,12 @@ public class SecurOSGui extends JFrame implements ActionListener {
         this.documents = new ArrayList<ItemButton>();
         this.all = new ArrayList<ItemButton>();
         this.cats = new ArrayList<JButton>();
+        this.searchbar = new JTextField();
+
         catbar = new JPanel();
         mainbar = new JPanel();
 
-
+        searchbar.addKeyListener(this);
 
         //layout of master JFrame
         mastermanage = new BorderLayout();
@@ -117,6 +120,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
         //Final additions to true Jframe (this)
         this.add(catbar, BorderLayout.WEST); //Adds catbar
+        this.add(searchbar, BorderLayout.NORTH);
         //this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         catbar.revalidate();
         mainScroll.revalidate();
@@ -148,11 +152,14 @@ public class SecurOSGui extends JFrame implements ActionListener {
             allMode();
         }
 
+
         for(ItemButton check: programs){
             if(e.getSource().equals(check)){
                 try {
+
                     Process p = Runtime.getRuntime()
                             .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
+                    System.out.println("Starting process: " + p.toString() + "for file: " + check.getName());
                 } catch(Exception exe) {
                     System.out.println("Failed to run file!");
                     Object[] options = { "OK", "CANCEL" };
@@ -215,8 +222,81 @@ public class SecurOSGui extends JFrame implements ActionListener {
             }
         }
     }
+    public void keyPressed(KeyEvent keyEvent) {
+       if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
+           filteredMode(this.searchbar.getText());
+       }
+    }
+
+    public void keyReleased(KeyEvent keyEvent) {
+        if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
+            //filteredMode(this.searchbar.getText());
+        }
+    }
+
+    public void keyTyped(KeyEvent keyEvent) {
+        if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
+
+        }
+    }
 
 
+    public void filteredMode(String search){
+        ArrayList<ItemButton> searched = new ArrayList<ItemButton>();
+        int count = 0;
+        //rebuild main pane
+        mainbar.removeAll();
+        try {
+            this.remove(mainScroll);
+        } catch (Exception e){
+            System.out.println("I have not created the main scroll pane yet");
+        }
+
+
+        for(ItemButton cur : this.programs) {
+            System.out.println("added: " + cur.mes);
+            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
+            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+                searched.add(cur);
+                count++;
+            }
+        }
+        for(ItemButton cur : this.onlines) {
+            System.out.println("added: " + cur.mes);
+            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
+            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+                searched.add(cur);
+                count++;
+            }
+        }
+        for(ItemButton cur : this.documents) {
+            System.out.println("added: " + cur.mes);
+            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
+            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+                searched.add(cur);
+                count++;
+            }
+        }
+
+        mainmanage = new GridLayout(searched.size(), 1);
+        mainbar.setLayout(mainmanage);
+
+        for(ItemButton cur : searched) {
+            cur.removeActionListener(this);
+            cur.addActionListener(this);
+            mainbar.add(cur);
+        }
+        //add new mainbar to scrollpane
+        mainScroll = new JScrollPane(mainbar);
+        //Do stuff for the scrollpane
+        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        mainScroll.setBounds(50, 30, 300, 50);
+        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        mainScroll.revalidate();
+        this.validate();
+        this.repaint();
+    }
     /**
      * Sets mode to programs
      */
@@ -233,6 +313,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
         for(ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
+            cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
         }
@@ -264,6 +345,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
         for(ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
+            cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
         }
@@ -295,6 +377,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
         for(ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
+            cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
         }
@@ -326,6 +409,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
         for(ItemButton cur : this.all) {
             System.out.println("added: " + cur.mes);
+            cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
         }
