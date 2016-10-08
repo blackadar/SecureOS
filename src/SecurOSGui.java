@@ -1,8 +1,6 @@
 /**
  * Created by Liam Brown on 10/8/2016.
  */
-/**
- * Created by Liam Brown on 10/8/2016.
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +19,7 @@ public class SecurOSGui extends JFrame implements ActionListener {
      * @param programs
      * @param online
      * @param files
-     *
+     */
     public SecurOSGui(ArrayList <File> programs, ArrayList <File> online,  ArrayList <File> files){
         for(File cur: programs){
             this.programs.add(newcur);
@@ -39,8 +37,6 @@ public class SecurOSGui extends JFrame implements ActionListener {
 
     }
 }
-
-*/
 
 
 
