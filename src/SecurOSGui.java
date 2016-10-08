@@ -127,11 +127,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.get(0).revalidate();
         cats.get(0).repaint();
         mainScroll.setVisible(true);
+        //fullscreen
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
+
         this.setSize((int)screenSize.getWidth(), (int)screenSize.getHeight());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.validate();
         this.repaint();
+
     }
 
     @Override
