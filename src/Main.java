@@ -3,5 +3,6 @@
  */
 public class Main {
     //TODO: Implement main method.
+    // Run FILESEARCH on startup
 }
 

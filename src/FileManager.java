@@ -1,21 +1,21 @@
 import java.io.File;
 import java.util.ArrayList;
-
 /**
  * Created by Jordan on 10/8/2016.
  */
-public class FileManager {
-    ArrayList<File> fileList = new ArrayList<File>(); //List of ALL retrieved files
 
-    ArrayList<File> onlineList = new ArrayList<File>(); //List of ONLINE shortcut files
-    ArrayList<File> programList = new ArrayList<File>(); //List of installed PROGRAMS
-    ArrayList<File> documentList = new ArrayList<File>(); //List of DOCUMENTS in user dir
-    ArrayList<File> unassignedList = new ArrayList<File>(); //List of unknown filetype files
+public class FileManager {
+    static ArrayList<File> fileList = new ArrayList<File>(); //List of ALL retrieved files
+
+    static ArrayList<File> onlineList = new ArrayList<File>(); //List of ONLINE shortcut files
+    static ArrayList<File> programList = new ArrayList<File>(); //List of installed PROGRAMS
+    static ArrayList<File> documentList = new ArrayList<File>(); //List of DOCUMENTS in user dir
+    static ArrayList<File> unassignedList = new ArrayList<File>(); //List of unknown filetype files
 
 
     static int fileCount = 0;
 
-    public void addFile(String pathName){
+    public static void addFile(String pathName){
         String fileType;
         fileList.add(new File(pathName));
         fileType = Identify.identifyFileType(pathName);
