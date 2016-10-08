@@ -47,7 +47,17 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainbar = new JPanel();
 
         searchbar.addKeyListener(this);
-
+        searchbar.setFont(new Font("Calibri", Font.PLAIN, 45));
+        searchbar.setText("Search Here!");
+        searchbar.addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e){
+                searchbar.setText("");
+            }
+            public void focusLost(FocusEvent e){
+                searchbar.setText("Search Here!");
+            }
+        });
         //layout of master JFrame
         mastermanage = new BorderLayout();
         this.setLayout(this.mastermanage); //Set layout of JFrame
@@ -66,20 +76,41 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.add(new JButton("Files"));
         cats.add(new JButton("All"));
 
+        int count = 0;
         //Create Lists of Buttons
         for(File cur: programs){
-            this.programs.add(new ItemButton(cur));
+            ItemButton temp = new ItemButton(cur);
+            this.programs.add(temp);
+            this.all.add(temp);
+            count++;
         }
         for(File cur: online){
-            this.onlines.add(new ItemButton(cur));
+            ItemButton temp = new ItemButton(cur);
+            this.onlines.add(temp);
+            this.all.add(temp);
         }
         for(File cur: documents){
-            this.documents.add(new ItemButton(cur));
+            ItemButton temp = new ItemButton(cur);
+            this.documents.add(temp);
+            this.all.add(temp);
         }
+
+        int counter = 0;
+        for(File f : all){
+            for(ItemButton a : this.all){
+                if(a.myFile.equals(f)){
+                    System.out.println("matched file from all list to an Item Button object: " + FileManager.iconList.get(counter).toString());
+                    a.setIcon(FileManager.iconList.get(counter));
+                }
+            }
+            counter++;
+        }
+        System.out.print(this.programs.get(0).toString() + " " + this.programs.get(0).getIcon().toString() + " ");
+        /*
         for(File cur: all){
             this.all.add(new ItemButton(cur));
         }
-
+*/
 
         //Initialize buttons?
         /*
@@ -103,6 +134,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.get(1).addActionListener(this);
         cats.get(2).addActionListener(this);
         cats.get(3).addActionListener(this);
+
+
+
+
+
         catbar.add(cats.get(0)); //adds 4 categories
         catbar.add(cats.get(1));
         catbar.add(cats.get(2));
@@ -117,7 +153,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         //mainScroll.setBounds(50, 30, 300, 50);
 
 
-
+        cats.get(0).setBackground(Color.lightGray);
         //Final additions to true Jframe (this)
         this.add(catbar, BorderLayout.WEST); //Adds catbar
         this.add(searchbar, BorderLayout.NORTH);
@@ -133,10 +169,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
 
         this.setSize((int)screenSize.getWidth(), (int)screenSize.getHeight());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         this.setVisible(true);
         this.validate();
         this.repaint();
-
+        this.cats.get(0).requestFocus();
     }
 
     @Override
@@ -145,15 +182,31 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         Runtime runExe = Runtime.getRuntime();
 
         if(e.getSource().equals(cats.get(0))){
+            cats.get(1).setBackground(null);
+            cats.get(2).setBackground(null);
+            cats.get(3).setBackground(null);
+            cats.get(0).setBackground(Color.LIGHT_GRAY);
             programsMode();
         }
         if(e.getSource().equals(cats.get(1))){
+            cats.get(0).setBackground(null);
+            cats.get(2).setBackground(null);
+            cats.get(3).setBackground(null);
+            cats.get(1).setBackground(Color.LIGHT_GRAY);
             onlinesMode();
         }
         if(e.getSource().equals(cats.get(2))){
+            cats.get(0).setBackground(null);
+            cats.get(1).setBackground(null);
+            cats.get(3).setBackground(null);
+            cats.get(2).setBackground(Color.LIGHT_GRAY);
             documentsMode();
         }
         if(e.getSource().equals(cats.get(3))){
+            cats.get(0).setBackground(null);
+            cats.get(1).setBackground(null);
+            cats.get(2).setBackground(null);
+            cats.get(3).setBackground(Color.LIGHT_GRAY);
             allMode();
         }
 
@@ -261,7 +314,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.mes.toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.mes.toUpperCase())){
+            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.mes.toUpperCase())){
                 searched.add(cur);
                 count++;
             }
@@ -269,7 +322,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+            if(cur.getLabel().contains((CharSequence) search) || search.contains((CharSequence) cur.getLabel())){
                 searched.add(cur);
                 count++;
             }
@@ -277,7 +330,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.mes.contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+            if(cur.getLabel().contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
                 searched.add(cur);
                 count++;
             }

@@ -11,12 +11,21 @@ import java.io.*;
 public class ItemButton extends JButton {
     String mes;
     File myFile;
+    Icon myImage;
+
     public ItemButton(File myFile){
         super(myFile.getName());
         this.setName(myFile.getName());
         this.myFile = myFile;
         mes = this.getName();
+        this.setFont(new Font("Calibri", Font.BOLD, 30));
         this.setPreferredSize(new Dimension(150, 100));
         this.revalidate();
+    }
+    public void setIcon(Icon i){
+        this.myImage = i;
+    }
+    public Icon getIcon(){
+        return myImage;
     }
 }
