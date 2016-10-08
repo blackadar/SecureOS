@@ -18,6 +18,7 @@ public class ItemButton extends JButton {
         this.setName(myFile.getName());
         this.myFile = myFile;
         mes = this.getName();
+        this.setIconTextGap(10);
         this.setFont(new Font("Calibri", Font.BOLD, 30));
         this.setPreferredSize(new Dimension(150, 100));
         this.revalidate();

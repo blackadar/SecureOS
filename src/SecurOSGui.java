@@ -237,7 +237,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
                     exe.printStackTrace();
                     System.out.println("Failed to run file!");
                     Object[] options = {"OK", "CANCEL"};
-                    JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning: Failed to run file",
+                    JOptionPane.showOptionDialog(null, "Search at top of screen", "Welcome to SecurOS!",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                             null, options, options[0]);
                 }
@@ -314,7 +314,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.mes.toUpperCase())){
+            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
                 searched.add(cur);
                 count++;
             }
@@ -322,7 +322,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().contains((CharSequence) search) || search.contains((CharSequence) cur.getLabel())){
+            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
                 searched.add(cur);
                 count++;
             }
@@ -330,7 +330,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for(ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().contains((CharSequence) search) || search.contains((CharSequence) cur.mes)){
+            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
                 searched.add(cur);
                 count++;
             }
