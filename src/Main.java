@@ -9,6 +9,7 @@ import java.io.*;
 
 public class Main {
     public static void main(String args[]) {
+        FileSearch.findFiles();
         //TEST VARIABLES
         File program = new File("C:\\Windows\\system32\\mspaint.exe");
         File program1 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program1.exe");
