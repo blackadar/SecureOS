@@ -1,23 +1,25 @@
 /**
  * Created by Jordan on 10/8/2016.
  */
+import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 public class FileSearch {
 
-    File desktop = new File(System.getProperty("User.home"), "Desktop");
-    File[] files = desktop.listFiles();
+    static File desktop = FileSystemView.getFileSystemView().getHomeDirectory();
+    static File[] files = desktop.listFiles();
 
-    public String getPath(int position){
+    public static String getPath(int position){
         return files[position].toString();
     }
 
-    public int getNumberFiles(){
-        return files.length;
-    }
-
-    public void findFiles(){
-        for(File file : files){
-
+    public static void findFiles(){
+        for(int i = 0; i < files.length ; i++){
+            FileManager.addFile(getPath(i));
             }
         }
+
+    public static void main(String [] args){
+        System.out.println(desktop);
+        findFiles();
+    }
 }
