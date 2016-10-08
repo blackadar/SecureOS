@@ -30,7 +30,7 @@ public class FileManager {
         }
 
         else if(fileType.equals("html")){
-            onlineList.add(fileList.get(fileCount)); //Adds the file to onlineList if its type is online
+            onlineList.add(fileList.get(fileCount)); //Adds the file to onlineList if its type is onlines
         }
 
         else{

@@ -10,7 +10,7 @@ import java.io.*;
 public class Main {
     public static void main(String args[]) {
         //TEST VARIABLES
-        File program = new File("C:/Users/Liam Brown/Desktop/TestFiles/program.exe");
+        File program = new File("C:\\Windows\\system32\\mspaint.exe");
         File program1 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program1.exe");
         File program2 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program2.exe");
         File program3 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program3.exe");
@@ -20,7 +20,7 @@ public class Main {
         File program7 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program7.exe");
         File program8 = new File("C:/Users/Liam Brown/Desktop/TestFiles/program8.exe");
         File online = new File("C:/Users/Liam Brown/Desktop/TestFiles/online.html");
-        File document = new File("C:/Users/Liam Brown/Desktop/TestFiles/document.docx");
+        File document = new File("C:/Users/Liam Brown/Desktop/TestFiles/document.lnk");
         ArrayList<File> programs = new ArrayList<File>();
         programs.add(program);
         programs.add(program1);
@@ -35,8 +35,21 @@ public class Main {
         onlines.add(online);
         ArrayList<File> documents = new ArrayList<File>();
         documents.add(document);
+        ArrayList<File> all = new ArrayList<File>();
+        all.add(program);
+        all.add(program1);
+        all.add(program2);
+        all.add(program3);
+        all.add(program4);
+        all.add(program5);
+        all.add(program6);
+        all.add(program7);
+        all.add(program8);
+        all.add(online);
+        all.add(document);
+
         //END TEST VARIABLES
-        SecurOSGui myGui = new SecurOSGui(programs, onlines, documents);
+        SecurOSGui myGui = new SecurOSGui(programs, onlines, documents, all);
     }
 }
 
