@@ -1,5 +1,9 @@
 /**
- * Created by Jordan on 10/8/2016.
+ * Searches the user desktop for files and creates and array of values.
+ * @author Jordan Blackadar
+ * @author Michael Alano
+ * @version 0.1.0
+ * @since 10/8/16
  */
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;

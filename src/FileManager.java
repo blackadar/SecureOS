@@ -1,11 +1,15 @@
+/**
+ * Sorts files into array lists based on attributes.
+ * @author Jordan Blackadar
+ * @author Michael Alano
+ * @version 0.1.0
+ * @since 10/8/16
+ */
+
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
-
-/**
- * Created by Jordan on 10/8/2016.
- */
 
 public class FileManager {
     static ArrayList<File> fileList = new ArrayList<File>(); //List of ALL retrieved files

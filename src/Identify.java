@@ -1,3 +1,9 @@
+/**
+ * Identifies file type and returns the ending file type.
+ * @author Michael Alano
+ * @version 0.1.0
+ * @since 10/8/16
+ */
 
 public class Identify {
 

@@ -1,8 +1,8 @@
 /**
- * Created by Liam Brown on 10/8/2016.
- */
-/**
- * Created by Liam Brown on 10/8/2016.
+ * Creates graphical user interface for SecureOS
+ * @author Liam Brown
+ * @version 0.1.0
+ * @since 10/8/16
  */
 import javax.swing.*;
 import java.awt.*;
