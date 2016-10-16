@@ -48,14 +48,14 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
 
         searchbar.addKeyListener(this);
         searchbar.setFont(new Font("Calibri", Font.PLAIN, 45));
-        searchbar.setText("Search Here!");
+        searchbar.setText("Search");
         searchbar.addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e){
                 searchbar.setText("");
             }
             public void focusLost(FocusEvent e){
-                searchbar.setText("Search Here!");
+                searchbar.setText("Search");
             }
         });
         //layout of master JFrame
@@ -360,6 +360,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
@@ -404,6 +405,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
@@ -446,6 +448,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
@@ -488,6 +491,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
@@ -530,6 +534,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
