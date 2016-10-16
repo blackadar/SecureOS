@@ -1,5 +1,8 @@
 /**
- * Created by Liam Brown on 10/8/2016.
+ * Creates button objects for GUI.
+ * @author Liam Brown
+ * @version 0.1.0
+ * @since 10/8/2016
  */
 import javax.swing.*;
 import java.awt.*;
