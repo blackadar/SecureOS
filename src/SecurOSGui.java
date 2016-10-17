@@ -62,15 +62,15 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
                 searchbar.setText("Search");
             }
         });
-        //layout of master JFrame
+        //Layout of Master JFrame
         mastermanage = new BorderLayout();
-        this.setLayout(this.mastermanage); //Set layout of JFrame
+        this.setLayout(this.mastermanage);
 
-        //layout of category bar
+        //Layout of Category Bar
         catmanage = new GridLayout(programs.size(), 1);
         catbar.setLayout(catmanage);
 
-        //layout of main bar
+        //Layout of Main Bar
         mainmanage = new GridLayout(programs.size(), 1);
         mainbar.setLayout(mainmanage);
 
@@ -121,7 +121,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         cats.get(2).addActionListener(this);
         cats.get(3).addActionListener(this);
 
-        catbar.add(cats.get(0)); //adds 4 categories
+        catbar.add(cats.get(0)); //Adds 4 categories
         catbar.add(cats.get(1));
         catbar.add(cats.get(2));
         catbar.add(cats.get(3));
@@ -129,21 +129,17 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         //Start in 'Programs' view
         programsMode();
 
-
         cats.get(0).setBackground(Color.lightGray);
         //Final additions to true Jframe (this)
-        this.add(catbar, BorderLayout.WEST); //Adds catbar
+        this.add(catbar, BorderLayout.WEST);
         this.add(searchbar, BorderLayout.NORTH);
-        //this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         catbar.revalidate();
         mainScroll.revalidate();
         cats.get(0).revalidate();
         cats.get(0).repaint();
         mainScroll.setVisible(true);
-        //fullscreen
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
-
         this.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,8 +155,6 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Selector pane action.");
-
         if (e.getSource().equals(cats.get(0))) {
             cats.get(1).setBackground(null);
             cats.get(2).setBackground(null);
@@ -190,23 +184,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
             allMode();
         }
 
-
         for (ItemButton check : programs) {
             runProgram(e,check);
         }
         for (ItemButton check : onlines) {
             runProgram(e, check);
         }
-
         for (ItemButton check : documents) {
             runProgram(e,check);
         }
-
-        for (ItemButton check : all) {
-            runProgram(e, check);
-        }
     }
-
     /**
      * Attempts to run the chosen program.
      * @param e The ActionListener e from the event
@@ -237,24 +224,16 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
     }
 
     /**
-     * Filler for released 'Enter' key. (Possibly Redundant?)
+     * Filler for released key event. Non-functional.
      * @param keyEvent The key event to process
      */
-    public void keyReleased(KeyEvent keyEvent) { //TODO: Check if redundant
-        if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
-            //filteredMode(this.searchbar.getText());
-        }
-    }
+    public void keyReleased(KeyEvent keyEvent) {}
 
     /**
-     * Filler for depressed 'Enter' key. (Possibly redundant?)
+     * Filler for depressed key event. Non-functional.
      * @param keyEvent The key event to process
      */
-    public void keyTyped(KeyEvent keyEvent) { //TODO: Check if redundant
-        if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
-            //filteredMode(this.searchbar.getText());
-        }
-    }
+    public void keyTyped(KeyEvent keyEvent) {}
 
     /**
      * Filters list to search terms and displays buttons
@@ -262,7 +241,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      */
     private void filteredMode(String search) {
         ArrayList<ItemButton> searched = new ArrayList<ItemButton>();
-        //rebuild main pane
+        //Rebuild Main Pane
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
@@ -313,14 +292,14 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         }
 
 
-        //Add new mainbar to scrollpane
+        //Add New Main Bar to ScrollPane
         mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
+        //Configure the ScrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases Speed of Scroll Bar
+        this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
         this.repaint();
@@ -337,7 +316,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      */
     private void programsMode(){
 
-        //rebuild main pane
+        //Rebuild Main Pane
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
@@ -349,14 +328,14 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         this.programs.forEach(this::buildMain);
 
-        //add new mainbar to scrollpane
+        //Add new Main Bar to ScrollPane
         mainScroll = new JScrollPane(mainbar);
-        //Configure scrollpane
+        //Configure ScrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases scrollbar speed
+        this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
         this.repaint();
@@ -366,7 +345,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      * Switches to online mode, only displaying html files.
      */
     private void onlinesMode(){
-        //rebuild main pane
+        //Rebuild Main Pane
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
@@ -378,14 +357,14 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         this.onlines.forEach(this::buildMain);
 
-        //add new mainbar to scrollpane
+        //Adds Main Bar to ScrollPane
         mainScroll = new JScrollPane(mainbar);
-        //Configure scrollpane
+        //Configure ScrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases scrollbar speed
+        this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
         this.repaint();
@@ -395,7 +374,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      * Switches to document mode, only displaying document related files.
      */
     private void documentsMode(){
-        //rebuild main pane
+        //Rebuild Main Pane
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
@@ -407,9 +386,9 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         this.documents.forEach(this::buildMain);
 
-        //add new mainbar to scrollpane
+        //Add new Main Bar to Scroll Pane
         mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
+        //Configure the Scroll Pane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
@@ -436,9 +415,9 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         this.all.forEach(this::buildMain);
 
-        //add new mainbar to scrollpane
+        //add new Main Bar to Scroll Pane
         mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
+        //Configure the AcrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
