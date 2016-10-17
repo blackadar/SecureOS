@@ -120,7 +120,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         cats.get(2).addActionListener(this);
         cats.get(3).addActionListener(this);
 
-        catbar.add(cats.get(0)); //Adds 4 categories
+        catbar.add(cats.get(0)); //Adds 4 Categories
         catbar.add(cats.get(1));
         catbar.add(cats.get(2));
         catbar.add(cats.get(3));
@@ -193,6 +193,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
             runProgram(e,check);
         }
     }
+
     /**
      * Attempts to run the chosen program.
      * @param e The ActionListener e from the event
@@ -241,7 +242,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      */
     private void filteredMode(String search) {
         ArrayList<ItemButton> searched = new ArrayList<ItemButton>();
-        //Rebuild Main Pane
+        //Rebuild Main Pane with Conditions
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
@@ -269,18 +270,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         mainbar.setLayout(mainmanage);
 
         searched.forEach(this::buildMain);
-
-        //Add New Main Bar to ScrollPane
-        mainScroll = new JScrollPane(mainbar);
-        //Configure the ScrollPane
-        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases Speed of Scroll Bar
-        this.add(mainScroll, BorderLayout.CENTER);
-        mainScroll.revalidate();
-        this.validate();
-        this.repaint();
+        drawMain();
 
         // Alerts user if no results were returned
         if (searched.size() == 0) {
@@ -293,117 +283,36 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      * Switches to programs mode, only displaying link files.
      */
     private void programsMode(){
-
-        //Rebuild Main Pane
-        mainbar.removeAll();
-        try {
-            this.remove(mainScroll);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        mainmanage = new GridLayout(programs.size(), 1);
-        mainbar.setLayout(mainmanage);
-
+        rebuildMain();
         this.programs.forEach(this::buildMain);
-
-        //Add new Main Bar to ScrollPane
-        mainScroll = new JScrollPane(mainbar);
-        //Configure ScrollPane
-        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER);
-        mainScroll.revalidate();
-        this.validate();
-        this.repaint();
+        drawMain();
     }
 
     /**
      * Switches to online mode, only displaying html files.
      */
     private void onlinesMode(){
-        //Rebuild Main Pane
-        mainbar.removeAll();
-        try {
-            this.remove(mainScroll);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        mainmanage = new GridLayout(onlines.size(), 1);
-        mainbar.setLayout(mainmanage);
-
+        rebuildMain();
         this.onlines.forEach(this::buildMain);
-
-        //Adds Main Bar to ScrollPane
-        mainScroll = new JScrollPane(mainbar);
-        //Configure ScrollPane
-        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER);
-        mainScroll.revalidate();
-        this.validate();
-        this.repaint();
+        drawMain();
     }
 
     /**
      * Switches to document mode, only displaying document related files.
      */
     private void documentsMode(){
-        //Rebuild Main Pane
-        mainbar.removeAll();
-        try {
-            this.remove(mainScroll);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        mainmanage = new GridLayout(documents.size(), 1);
-        mainbar.setLayout(mainmanage);
-
+        rebuildMain();
         this.documents.forEach(this::buildMain);
-
-        //Add new Main Bar to Scroll Pane
-        mainScroll = new JScrollPane(mainbar);
-        //Configure the Scroll Pane
-        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
-        mainScroll.revalidate();
-        this.validate();
-        this.repaint();
+        drawMain();
     }
 
     /**
      * Switches to 'all' mode, displays all files, programs and websites alphabetically.
      */
     private void allMode(){
-        //rebuild main pane
-        mainbar.removeAll();
-        try {
-            this.remove(mainScroll);
-        } catch (Exception e){
-           e.printStackTrace();
-        }
-        mainmanage = new GridLayout(all.size(), 1);
-        mainbar.setLayout(mainmanage);
-
+        rebuildMain();
         this.all.forEach(this::buildMain);
-
-        //add new Main Bar to Scroll Pane
-        mainScroll = new JScrollPane(mainbar);
-        //Configure the ScrollPane
-        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER);
-        mainScroll.revalidate();
-        this.validate();
-        this.repaint();
+        drawMain();
     }
 
     /**
@@ -422,5 +331,36 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         cur.removeActionListener(this);
         cur.addActionListener(this);
         mainbar.add(cur);
+    }
+
+    /**
+     * Rebuilds the main pane.
+     */
+    private void rebuildMain(){
+        mainbar.removeAll();
+        try {
+            this.remove(mainScroll);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        mainmanage = new GridLayout(all.size(), 1);
+        mainbar.setLayout(mainmanage);
+    }
+
+    /**
+     * Finalizes and draws the main bar and scroll pane.
+     */
+    private void drawMain(){
+        //Add new Main Bar to Scroll Pane
+        mainScroll = new JScrollPane(mainbar);
+        //Configure the Scroll Pane
+        mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        mainScroll.setBounds(50, 30, 300, 50);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
+        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        mainScroll.revalidate();
+        this.validate();
+        this.repaint();
     }
 }
