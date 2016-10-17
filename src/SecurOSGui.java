@@ -1,6 +1,7 @@
 /**
  * Creates graphical user interface for SecureOS
  * @author Liam Brown
+ * @author Jordan Blackadar
  * @version 0.1.0
  * @since 10/8/16
  */
@@ -353,6 +354,12 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
             cur.removeActionListener(this);
             cur.addActionListener(this);
             mainbar.add(cur);
+        }
+
+        // Alerts user if no results were returned
+        if(searched.size() == 0) {
+            JOptionPane frame = new JOptionPane();
+            JOptionPane.showMessageDialog(frame, "No result found.");
         }
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
