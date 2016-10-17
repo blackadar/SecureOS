@@ -26,6 +26,7 @@ public class ItemButton extends JButton {
         this.setPreferredSize(new Dimension(150, 100));
         this.revalidate();
         this.setToolTipText(this.getName());
+        this.setHorizontalAlignment(SwingConstants.LEFT);
     }
     public void setIcon(Icon i){
         this.myImage = i;
