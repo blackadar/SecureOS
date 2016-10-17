@@ -25,6 +25,7 @@ public class ItemButton extends JButton {
         this.setFont(new Font("Calibri", Font.BOLD, 30));
         this.setPreferredSize(new Dimension(150, 100));
         this.revalidate();
+        this.setToolTipText(this.getName());
     }
     public void setIcon(Icon i){
         this.myImage = i;

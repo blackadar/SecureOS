@@ -5,11 +5,15 @@
  * @version 0.1.0
  * @since 10/8/16
  */
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.io.*;
+import java.net.URL;
 
 
 public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
@@ -50,6 +54,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         searchbar.addKeyListener(this);
         searchbar.setFont(new Font("Calibri", Font.PLAIN, 45));
         searchbar.setText("Search");
+        searchbar.setToolTipText("Enter Terms and Press <ENTER>");
         searchbar.addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e){
@@ -76,6 +81,12 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.add(new JButton("Online"));
         cats.add(new JButton("Files"));
         cats.add(new JButton("All"));
+
+        //Tooltip Category Buttons
+        cats.get(0).setToolTipText("Installed Software");
+        cats.get(1).setToolTipText("Saved Websites");
+        cats.get(2).setToolTipText("Saved Data for Programs");
+        cats.get(3).setToolTipText("Alphabetical List of All");
 
         int count = 0;
         //Create Lists of Buttons
@@ -300,38 +311,38 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
     }
 
 
-    public void filteredMode(String search){
+    public void filteredMode(String search) {
         ArrayList<ItemButton> searched = new ArrayList<ItemButton>();
         int count = 0;
         //rebuild main pane
         mainbar.removeAll();
         try {
             this.remove(mainScroll);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("I have not created the main scroll pane yet");
         }
 
 
-        for(ItemButton cur : this.programs) {
+        for (ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
+            if (cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())) {
                 searched.add(cur);
                 count++;
             }
         }
-        for(ItemButton cur : this.onlines) {
+        for (ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
+            if (cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())) {
                 searched.add(cur);
                 count++;
             }
         }
-        for(ItemButton cur : this.documents) {
+        for (ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if(cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())){
+            if (cur.getLabel().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getLabel().toUpperCase())) {
                 searched.add(cur);
                 count++;
             }
@@ -340,10 +351,10 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainmanage = new GridLayout(searched.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for(ItemButton cur : searched) {
+        for (ItemButton cur : searched) {
             String modName = "";
-            for(char c : cur.mes.toCharArray()){
-                if(c == '.'){
+            for (char c : cur.mes.toCharArray()) {
+                if (c == '.') {
                     break;
                 }
                 modName += c;
@@ -356,11 +367,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
             mainbar.add(cur);
         }
 
-        // Alerts user if no results were returned
-        if(searched.size() == 0) {
-            JOptionPane frame = new JOptionPane();
-            JOptionPane.showMessageDialog(frame, "No result found.");
-        }
+
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
         //Do stuff for the scrollpane
@@ -372,6 +379,12 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.revalidate();
         this.validate();
         this.repaint();
+
+        // Alerts user if no results were returned
+        if (searched.size() == 0) {
+            JOptionPane frame = new JOptionPane();
+            JOptionPane.showMessageDialog(frame, "No result found.");
+        }
     }
     /**
      * Sets mode to programs

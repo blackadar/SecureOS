@@ -6,7 +6,11 @@
  * @version 0.1.2
  * @since 10/16/16
  */
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+import de.javasoft.*;
+
 import javax.swing.*;
+import java.awt.Font;
 
 public class Main {
     public static void main(String args[]) {
@@ -14,11 +18,15 @@ public class Main {
         FileSearch.findFiles();
         // Set Look and Feel for UIManager
         try {
-            // Set cross-platform Java L&F
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //TODO: Find a good-looking L&F that actually works
+            // Only necessary if using Synthetica (which is free only for non-commercial use)
+            SyntheticaLookAndFeel.setWindowsDecorated(false);
+            System.setProperty("swing.aatext", "true");
+            SyntheticaLookAndFeel.setFont(new Font("Calibri", Font.PLAIN, 45));
+            UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel");
+             // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); // Alt to Synthetica
         }
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            // handle exception
+            // Handle exception if look & feel set fails
             e.printStackTrace();
         }
         // Create GUI
