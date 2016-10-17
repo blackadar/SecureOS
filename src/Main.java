@@ -7,7 +7,6 @@
  * @since 10/16/16
  */
 import javax.swing.*;
-import com.seaglasslookandfeel.*;
 
 public class Main {
     public static void main(String args[]) {
@@ -16,7 +15,7 @@ public class Main {
         // Set Look and Feel for UIManager
         try {
             // Set cross-platform Java L&F
-            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //TODO: Find a good-looking L&F that actually works
         }
         catch (UnsupportedLookAndFeelException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             // handle exception
