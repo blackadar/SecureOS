@@ -2,7 +2,7 @@
  * Creates graphical user interface for SecureOS
  * @author Liam Brown
  * @author Jordan Blackadar
- * @version 0.1.0
+ * @version 0.1.2
  * @since 10/8/16
  */
 
@@ -12,13 +12,12 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
 
-
-public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
-    private ArrayList <ItemButton> programs;
-    private ArrayList <ItemButton> onlines;
-    private ArrayList <ItemButton> documents;
-    private ArrayList <ItemButton> all;
-    private ArrayList <JButton> cats;
+public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
+    private ArrayList<ItemButton> programs;
+    private ArrayList<ItemButton> onlines;
+    private ArrayList<ItemButton> documents;
+    private ArrayList<ItemButton> all;
+    private ArrayList<JButton> cats;
 
     private JTextField searchbar;
     private JPanel catbar;
@@ -29,13 +28,14 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
     private GridLayout catmanage; //MasterLayout
     private GridLayout mainmanage; //MasterLayout
     private BorderLayout mastermanage; //MasterLayout
+
     /**
      * Builds GUI
-     * @param programs The ArrayList of programs (from FileManager.java).
-     * @param online The ArrayList of websites (from FileManager.java).
+     * @param programs  The ArrayList of programs (from FileManager.java).
+     * @param online    The ArrayList of websites (from FileManager.java).
      * @param documents The ArrayList of documents (from FileManager.java).
      */
-   public SecurOSGui(ArrayList<File> programs, ArrayList<File> online, ArrayList<File> documents, ArrayList<File> all){
+    public SecurOSGui(ArrayList<File> programs, ArrayList<File> online, ArrayList<File> documents, ArrayList<File> all) {
         super("SecurOS");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //Get screen size
         this.programs = new ArrayList<>();
@@ -52,12 +52,13 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         searchbar.setFont(new Font("Calibri", Font.PLAIN, 45));
         searchbar.setText("Search");
         searchbar.setToolTipText("Enter Terms and Press <ENTER>");
-        searchbar.addFocusListener(new FocusListener(){
+        searchbar.addFocusListener(new FocusListener() {
             @Override
-            public void focusGained(FocusEvent e){
+            public void focusGained(FocusEvent e) {
                 searchbar.setText("");
             }
-            public void focusLost(FocusEvent e){
+
+            public void focusLost(FocusEvent e) {
                 searchbar.setText("Search");
             }
         });
@@ -86,27 +87,27 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.get(3).setToolTipText("Alphabetical List of All");
 
         //Create Lists of Buttons
-        for(File cur: programs){
+        for (File cur : programs) {
             ItemButton temp = new ItemButton(cur);
             this.programs.add(temp);
             this.all.add(temp);
         }
-        for(File cur: online){
+        for (File cur : online) {
             ItemButton temp = new ItemButton(cur);
             this.onlines.add(temp);
             this.all.add(temp);
         }
-        for(File cur: documents){
+        for (File cur : documents) {
             ItemButton temp = new ItemButton(cur);
             this.documents.add(temp);
             this.all.add(temp);
         }
 
         int counter = 0;
-        for(File f : all){
-            for(ItemButton a : this.all){
-                if(a.myFile.equals(f)){
-                    System.out.println("matched file from all list to an Item Button object: " + FileManager.iconList.get(counter).toString());
+        for (File f : all) {
+            for (ItemButton a : this.all) {
+                if (a.myFile.equals(f)) {
+                    System.out.println("Matched file from all list to an Item Button object: " + FileManager.iconList.get(counter).toString());
                     a.setIcon(FileManager.iconList.get(counter));
                 }
             }
@@ -143,7 +144,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
 
-        this.setSize((int)screenSize.getWidth(), (int)screenSize.getHeight());
+        this.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.setVisible(true);
@@ -158,30 +159,30 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("got action!");
+        System.out.println("Selector pane action.");
 
-        if(e.getSource().equals(cats.get(0))){
+        if (e.getSource().equals(cats.get(0))) {
             cats.get(1).setBackground(null);
             cats.get(2).setBackground(null);
             cats.get(3).setBackground(null);
             cats.get(0).setBackground(Color.LIGHT_GRAY);
             programsMode();
         }
-        if(e.getSource().equals(cats.get(1))){
+        if (e.getSource().equals(cats.get(1))) {
             cats.get(0).setBackground(null);
             cats.get(2).setBackground(null);
             cats.get(3).setBackground(null);
             cats.get(1).setBackground(Color.LIGHT_GRAY);
             onlinesMode();
         }
-        if(e.getSource().equals(cats.get(2))){
+        if (e.getSource().equals(cats.get(2))) {
             cats.get(0).setBackground(null);
             cats.get(1).setBackground(null);
             cats.get(3).setBackground(null);
             cats.get(2).setBackground(Color.LIGHT_GRAY);
             documentsMode();
         }
-        if(e.getSource().equals(cats.get(3))){
+        if (e.getSource().equals(cats.get(3))) {
             cats.get(0).setBackground(null);
             cats.get(1).setBackground(null);
             cats.get(2).setBackground(null);
@@ -190,72 +191,37 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         }
 
 
-        for(ItemButton check: programs){
-            if(e.getSource().equals(check)){
-                try {
-
-                    Process p = Runtime.getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
-                    System.out.println("Starting process: " + p.toString() + "for file: " + check.getName());
-                } catch(Exception exe) {
-                    System.out.println("Failed to run file!");
-                    Object[] options = { "OK", "CANCEL" };
-                    JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning: Failed to run file",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
-                }
-                return;
-            }
+        for (ItemButton check : programs) {
+            runProgram(e,check);
         }
-        for(ItemButton check: onlines){
-            if(e.getSource().equals(check)) {
-                try {
-                    Process p = Runtime.getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
-                } catch (Exception exe) {
-                    exe.printStackTrace();
-                    System.out.println("Failed to run file!");
-                    Object[] options = {"OK", "CANCEL"};
-                    JOptionPane.showOptionDialog(null, "Search at top of screen", "Welcome to SecurOS!",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
-                }
-                return;
-            }
+        for (ItemButton check : onlines) {
+            runProgram(e, check);
         }
 
-        for(ItemButton check: documents) {
-            if (e.getSource().equals(check)) {
-                try {
-                    Process p = Runtime.getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
-
-                } catch (Exception exe) {
-                    exe.printStackTrace();
-                    System.out.println("Failed to run file!");
-                    Object[] options = {"OK", "CANCEL"};
-                    JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning: Failed to run file",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
-                }
-                return;
-            }
+        for (ItemButton check : documents) {
+            runProgram(e,check);
         }
 
-        for(ItemButton check: all) {
-            if (e.getSource().equals(check)) {
-                try {
-                    Process p = Runtime.getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
-                } catch (Exception exe) {
-                    exe.printStackTrace();
-                    System.out.println("Failed to run file!");
-                    Object[] options = {"OK", "CANCEL"};
-                    JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning: Failed to run file",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                            null, options, options[0]);
-                }
-                return;
+        for (ItemButton check : all) {
+            runProgram(e, check);
+        }
+    }
+
+    /**
+     * Attempts to run the chosen program.
+     * @param e The ActionListener e from the event
+     * @param check The ItemButton selected, check
+     */
+    private void runProgram(ActionEvent e, ItemButton check){
+        if (e.getSource().equals(check)) {
+            try {
+                Process p = Runtime.getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler " + check.myFile.getAbsolutePath());
+            } catch (Exception exe) {
+                exe.printStackTrace();
+                System.out.println("Failed to execute, reporting to user.");
+                JOptionPane frame = new JOptionPane();
+                JOptionPane.showMessageDialog(frame, "Sorry, that didn't work.");
             }
         }
     }
@@ -308,21 +274,21 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for (ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
         }
         for (ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
         }
         for (ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
         }
@@ -381,27 +347,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainmanage = new GridLayout(programs.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for(ItemButton cur : this.programs) {
-            //System.out.println("added: " + cur.mes);
-            //test
-            String modName = "";
-            for(char c : cur.mes.toCharArray()){
-                if(c == '.'){
-                    break;
-                }
-                modName += c;
-            }
-            System.out.println("added: " + cur.mes);
-            System.out.println("added: " + modName);
-            cur.setText(modName);
-            cur.removeActionListener(this);
-            cur.addActionListener(this);
-            mainbar.add(cur);
-        }
+        this.programs.forEach(this::buildMain);
 
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
+        //Configure scrollpane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
@@ -426,26 +376,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainmanage = new GridLayout(onlines.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for(ItemButton cur : this.onlines) {
-            System.out.println("added: " + cur.mes);
-            String modName = "";
-            for(char c : cur.mes.toCharArray()){
-                if(c == '.'){
-                    break;
-                }
-                modName += c;
-            }
-            System.out.println("added: " + cur.mes);
-            System.out.println("added: " + modName);
-            cur.setText(modName);
-            cur.removeActionListener(this);
-            cur.addActionListener(this);
-            mainbar.add(cur);
-        }
+        this.onlines.forEach(this::buildMain);
 
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
+        //Configure scrollpane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
@@ -470,22 +405,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainmanage = new GridLayout(documents.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for(ItemButton cur : this.documents) {
-            System.out.println("added: " + cur.mes);
-            String modName = "";
-            for(char c : cur.mes.toCharArray()){
-                if(c == '.'){
-                    break;
-                }
-                modName += c;
-            }
-            System.out.println("added: " + cur.mes);
-            System.out.println("added: " + modName);
-            cur.setText(modName);
-            cur.removeActionListener(this);
-            cur.addActionListener(this);
-            mainbar.add(cur);
-        }
+        this.documents.forEach(this::buildMain);
 
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
@@ -514,22 +434,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainmanage = new GridLayout(all.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for(ItemButton cur : this.all) {
-            System.out.println("added: " + cur.mes);
-            String modName = "";
-            for(char c : cur.mes.toCharArray()){
-                if(c == '.'){
-                    break;
-                }
-                modName += c;
-            }
-            System.out.println("added: " + cur.mes);
-            System.out.println("added: " + modName);
-            cur.setText(modName);
-            cur.removeActionListener(this);
-            cur.addActionListener(this);
-            mainbar.add(cur);
-        }
+        this.all.forEach(this::buildMain);
 
         //add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
@@ -542,5 +447,26 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         mainScroll.revalidate();
         this.validate();
         this.repaint();
+    }
+
+    /**
+     * Adds button to the main list of buttons currently being displayed.
+     * @param cur The current ItemButton.
+     */
+    private void buildMain(ItemButton cur){
+        System.out.println("added: " + cur.mes);
+        String modName = "";
+        for(char c : cur.mes.toCharArray()){
+            if(c == '.'){
+                break;
+            }
+            modName += c;
+        }
+        System.out.println("added: " + cur.mes);
+        System.out.println("added: " + modName);
+        cur.setText(modName);
+        cur.removeActionListener(this);
+        cur.addActionListener(this);
+        mainbar.add(cur);
     }
 }
