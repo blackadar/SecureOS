@@ -107,7 +107,6 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         for (File f : all) {
             for (ItemButton a : this.all) {
                 if (a.myFile.equals(f)) {
-                    System.out.println("Matched file from all list to an Item Button object: " + FileManager.iconList.get(counter).toString());
                     a.setIcon(FileManager.iconList.get(counter));
                 }
             }
@@ -246,27 +245,20 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         try {
             this.remove(mainScroll);
         } catch (Exception e) {
-            System.out.println("I have not created the main scroll pane yet");
+            e.printStackTrace();
         }
 
-
         for (ItemButton cur : this.programs) {
-            System.out.println("added: " + cur.mes);
-            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
             if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
         }
         for (ItemButton cur : this.onlines) {
-            System.out.println("added: " + cur.mes);
-            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
             if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
         }
         for (ItemButton cur : this.documents) {
-            System.out.println("added: " + cur.mes);
-            System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
             if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains( cur.getText().toUpperCase())) {
                 searched.add(cur);
             }
@@ -275,21 +267,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         mainmanage = new GridLayout(searched.size(), 1);
         mainbar.setLayout(mainmanage);
 
-        for (ItemButton cur : searched) {
-            String modName = "";
-            for (char c : cur.mes.toCharArray()) {
-                if (c == '.') {
-                    break;
-                }
-                modName += c;
-            }
-            System.out.println("added: " + cur.mes);
-            System.out.println("added: " + modName);
-            cur.setText(modName);
-            cur.removeActionListener(this);
-            cur.addActionListener(this);
-            mainbar.add(cur);
-        }
+        searched.forEach(this::buildMain);
 
 
         //Add New Main Bar to ScrollPane
@@ -321,7 +299,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         try {
             this.remove(mainScroll);
         } catch (Exception e){
-            System.out.println("I have not created the main scroll pane yet");
+            e.printStackTrace();
         }
         mainmanage = new GridLayout(programs.size(), 1);
         mainbar.setLayout(mainmanage);
@@ -350,7 +328,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         try {
             this.remove(mainScroll);
         } catch (Exception e){
-            System.out.println("I have not created the main scroll pane yet");
+            e.printStackTrace();
         }
         mainmanage = new GridLayout(onlines.size(), 1);
         mainbar.setLayout(mainmanage);
@@ -379,7 +357,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         try {
             this.remove(mainScroll);
         } catch (Exception e){
-            System.out.println("I have not created the main scroll pane yet");
+            e.printStackTrace();
         }
         mainmanage = new GridLayout(documents.size(), 1);
         mainbar.setLayout(mainmanage);
@@ -408,7 +386,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         try {
             this.remove(mainScroll);
         } catch (Exception e){
-            System.out.println("I have not created the main scroll pane yet");
+           e.printStackTrace();
         }
         mainmanage = new GridLayout(all.size(), 1);
         mainbar.setLayout(mainmanage);
@@ -417,12 +395,12 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         //add new Main Bar to Scroll Pane
         mainScroll = new JScrollPane(mainbar);
-        //Configure the AcrollPane
+        //Configure the ScrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
         mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
-        this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
+        this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
         this.repaint();
@@ -433,7 +411,6 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      * @param cur The current ItemButton.
      */
     private void buildMain(ItemButton cur){
-        System.out.println("added: " + cur.mes);
         String modName = "";
         for(char c : cur.mes.toCharArray()){
             if(c == '.'){
@@ -441,8 +418,6 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
             }
             modName += c;
         }
-        System.out.println("added: " + cur.mes);
-        System.out.println("added: " + modName);
         cur.setText(modName);
         cur.removeActionListener(this);
         cur.addActionListener(this);
