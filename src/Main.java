@@ -30,7 +30,7 @@ public class Main {
             e.printStackTrace();
         }
         // Create GUI
-        SecurOSGui myGui = new SecurOSGui(FileManager.programList, FileManager.onlineList, FileManager.documentList, FileManager.fileList);
+        SecureOSGui myGui = new SecureOSGui(FileManager.programList, FileManager.onlineList, FileManager.documentList, FileManager.fileList);
 
     }
 }

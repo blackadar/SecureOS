@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
 
-public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
+public class SecureOSGui extends JFrame implements ActionListener, KeyListener {
     private ArrayList<ItemButton> programs;
     private ArrayList<ItemButton> onlines;
     private ArrayList<ItemButton> documents;
@@ -25,9 +25,9 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
     private JScrollPane mainScroll;
 
-    private GridLayout catmanage; //MasterLayout
-    private GridLayout mainmanage; //MasterLayout
-    private BorderLayout mastermanage; //MasterLayout
+    private GridLayout catmanage; //MasterLayout for Categories
+    private GridLayout mainmanage; //MasterLayout for Main
+    private BorderLayout mastermanage; //MasterLayout for All
 
     /**
      * Builds GUI
@@ -35,8 +35,8 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
      * @param online    The ArrayList of websites (from FileManager.java).
      * @param documents The ArrayList of documents (from FileManager.java).
      */
-    public SecurOSGui(ArrayList<File> programs, ArrayList<File> online, ArrayList<File> documents, ArrayList<File> all) {
-        super("SecurOS");
+    public SecureOSGui(ArrayList<File> programs, ArrayList<File> online, ArrayList<File> documents, ArrayList<File> all) {
+        super("SecureOS");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //Get screen size
         this.programs = new ArrayList<>();
         this.onlines = new ArrayList<>();

@@ -12,7 +12,6 @@ public class FileSearch {
     private static File desktop = FileSystemView.getFileSystemView().getHomeDirectory();
     private static File[] files = desktop.listFiles();
 
-
     public static void findFiles() {
         for (File file : files) {
             if (file.isFile()) {

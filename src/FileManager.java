@@ -13,9 +13,7 @@ import javax.swing.filechooser.FileSystemView;
 
 public class FileManager {
     static ArrayList<File> fileList = new ArrayList<File>(); //List of ALL retrieved files
-
     static ArrayList<Icon> iconList = new ArrayList<Icon>(); //Corresponds by NUMBER to fileList
-
     static ArrayList<File> onlineList = new ArrayList<File>(); //List of ONLINE shortcut files
     static ArrayList<File> programList = new ArrayList<File>(); //List of installed PROGRAMS
     static ArrayList<File> documentList = new ArrayList<File>(); //List of DOCUMENTS in user dir
