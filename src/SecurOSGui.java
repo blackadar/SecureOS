@@ -5,47 +5,44 @@
  * @version 0.1.0
  * @since 10/8/16
  */
-import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.io.*;
-import java.net.URL;
 
 
 public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
-    ArrayList <ItemButton> programs;
-    ArrayList <ItemButton> onlines;
-    ArrayList <ItemButton> documents;
-    ArrayList <ItemButton> all;
-    ArrayList <JButton> cats;
+    private ArrayList <ItemButton> programs;
+    private ArrayList <ItemButton> onlines;
+    private ArrayList <ItemButton> documents;
+    private ArrayList <ItemButton> all;
+    private ArrayList <JButton> cats;
 
-    JTextField searchbar;
-    JPanel catbar;
-    JPanel mainbar;
+    private JTextField searchbar;
+    private JPanel catbar;
+    private JPanel mainbar;
 
-    JScrollPane mainScroll;
+    private JScrollPane mainScroll;
 
-    GridLayout catmanage; //MasterLayout
-    GridLayout mainmanage; //MasterLayout
-    BorderLayout mastermanage; //MasterLayout
+    private GridLayout catmanage; //MasterLayout
+    private GridLayout mainmanage; //MasterLayout
+    private BorderLayout mastermanage; //MasterLayout
     /**
-     * Builds Gui
-     * @param programs
-     * @param online
-     * @param documents
+     * Builds GUI
+     * @param programs The ArrayList of programs (from FileManager.java).
+     * @param online The ArrayList of websites (from FileManager.java).
+     * @param documents The ArrayList of documents (from FileManager.java).
      */
-    public SecurOSGui(ArrayList <File> programs, ArrayList <File> online,  ArrayList <File> documents, ArrayList<File> all){
+   public SecurOSGui(ArrayList<File> programs, ArrayList<File> online, ArrayList<File> documents, ArrayList<File> all){
         super("SecurOS");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //Get screen size
-        this.programs = new ArrayList<ItemButton>();
-        this.onlines = new ArrayList<ItemButton>();
-        this.documents = new ArrayList<ItemButton>();
-        this.all = new ArrayList<ItemButton>();
-        this.cats = new ArrayList<JButton>();
+        this.programs = new ArrayList<>();
+        this.onlines = new ArrayList<>();
+        this.documents = new ArrayList<>();
+        this.all = new ArrayList<>();
+        this.cats = new ArrayList<>();
         this.searchbar = new JTextField();
 
         catbar = new JPanel();
@@ -88,13 +85,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         cats.get(2).setToolTipText("Saved Data for Programs");
         cats.get(3).setToolTipText("Alphabetical List of All");
 
-        int count = 0;
         //Create Lists of Buttons
         for(File cur: programs){
             ItemButton temp = new ItemButton(cur);
             this.programs.add(temp);
             this.all.add(temp);
-            count++;
         }
         for(File cur: online){
             ItemButton temp = new ItemButton(cur);
@@ -117,52 +112,21 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
             }
             counter++;
         }
-        System.out.print(this.programs.get(0).toString() + " " + this.programs.get(0).getIcon().toString() + " ");
-        /*
-        for(File cur: all){
-            this.all.add(new ItemButton(cur));
-        }
-*/
 
-        //Initialize buttons?
-        /*
-        for(JButton curButton : cats){
-            curButton.setPreferredSize(new Dimension(100, 100));
-            curButton.setVisible(true);
-        }
-        for(ItemButton curButton : this.programs){
-            curButton.setPreferredSize(new Dimension(100, 100));
-            curButton.setVisible(true);
-        }
-        for(ItemButton curButton : this.onlines){
-            curButton.setPreferredSize(new Dimension(100, 100));
-            curButton.setVisible(true);
-        }
-        for(ItemButton curButton : this.documents){
-            curButton.setPreferredSize(new Dimension(100, 100));
-            curButton.setVisible(true);
-        } */
+        System.out.print(this.programs.get(0).toString() + " " + this.programs.get(0).getIcon().toString() + " ");
+
         cats.get(0).addActionListener(this);
         cats.get(1).addActionListener(this);
         cats.get(2).addActionListener(this);
         cats.get(3).addActionListener(this);
-
-
-
-
 
         catbar.add(cats.get(0)); //adds 4 categories
         catbar.add(cats.get(1));
         catbar.add(cats.get(2));
         catbar.add(cats.get(3));
 
-
+        //Start in 'Programs' view
         programsMode();
-        //mainScroll = new JScrollPane(mainbar);
-        //Do stuff for the scrollpane
-        //mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //mainScroll.setBounds(50, 30, 300, 50);
 
 
         cats.get(0).setBackground(Color.lightGray);
@@ -188,10 +152,13 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         this.cats.get(0).requestFocus();
     }
 
+    /**
+     * Takes action on a button press in the selector pane.
+     * @param e The action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("got action!");
-        Runtime runExe = Runtime.getRuntime();
 
         if(e.getSource().equals(cats.get(0))){
             cats.get(1).setBackground(null);
@@ -292,28 +259,43 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
             }
         }
     }
+
+    /**
+     * Acts upon text in search bar.
+     * @param keyEvent The key event to process
+     */
     public void keyPressed(KeyEvent keyEvent) {
        if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
            filteredMode(this.searchbar.getText());
        }
     }
 
-    public void keyReleased(KeyEvent keyEvent) {
+    /**
+     * Filler for released 'Enter' key. (Possibly Redundant?)
+     * @param keyEvent The key event to process
+     */
+    public void keyReleased(KeyEvent keyEvent) { //TODO: Check if redundant
         if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
             //filteredMode(this.searchbar.getText());
         }
     }
 
-    public void keyTyped(KeyEvent keyEvent) {
+    /**
+     * Filler for depressed 'Enter' key. (Possibly redundant?)
+     * @param keyEvent The key event to process
+     */
+    public void keyTyped(KeyEvent keyEvent) { //TODO: Check if redundant
         if (keyEvent.getKeyCode() == (KeyEvent.VK_ENTER)){
-
+            //filteredMode(this.searchbar.getText());
         }
     }
 
-
-    public void filteredMode(String search) {
+    /**
+     * Filters list to search terms and displays buttons
+     * @param search String, search term to use
+     */
+    private void filteredMode(String search) {
         ArrayList<ItemButton> searched = new ArrayList<ItemButton>();
-        int count = 0;
         //rebuild main pane
         mainbar.removeAll();
         try {
@@ -326,25 +308,22 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         for (ItemButton cur : this.programs) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
                 searched.add(cur);
-                count++;
             }
         }
         for (ItemButton cur : this.onlines) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
                 searched.add(cur);
-                count++;
             }
         }
         for (ItemButton cur : this.documents) {
             System.out.println("added: " + cur.mes);
             System.out.println("compared against " + cur.mes + ", got: " + Math.abs(cur.mes.compareTo(search)));
-            if (cur.getText().toUpperCase().contains((CharSequence) search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
+            if (cur.getText().toUpperCase().contains(search.toUpperCase()) || search.toUpperCase().contains((CharSequence) cur.getText().toUpperCase())) {
                 searched.add(cur);
-                count++;
             }
         }
 
@@ -368,7 +347,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         }
 
 
-        //add new mainbar to scrollpane
+        //Add new mainbar to scrollpane
         mainScroll = new JScrollPane(mainbar);
         //Do stuff for the scrollpane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -386,10 +365,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
             JOptionPane.showMessageDialog(frame, "No result found.");
         }
     }
+
     /**
-     * Sets mode to programs
+     * Switches to programs mode, only displaying link files.
      */
-    public void programsMode(){
+    private void programsMode(){
 
         //rebuild main pane
         mainbar.removeAll();
@@ -431,10 +411,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         this.validate();
         this.repaint();
     }
+
     /**
-     * Sets mode to online
+     * Switches to online mode, only displaying html files.
      */
-    public void onlinesMode(){
+    private void onlinesMode(){
         //rebuild main pane
         mainbar.removeAll();
         try {
@@ -474,10 +455,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         this.validate();
         this.repaint();
     }
+
     /**
-     * Sets mode to documents
+     * Switches to document mode, only displaying document related files.
      */
-    public void documentsMode(){
+    private void documentsMode(){
         //rebuild main pane
         mainbar.removeAll();
         try {
@@ -517,10 +499,11 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener{
         this.validate();
         this.repaint();
     }
+
     /**
-     * Sets mode to all
+     * Switches to 'all' mode, displays all files, programs and websites alphabetically.
      */
-    public void allMode(){
+    private void allMode(){
         //rebuild main pane
         mainbar.removeAll();
         try {
