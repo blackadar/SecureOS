@@ -2,7 +2,7 @@
  * Creates graphical user interface for SecureOS
  * @author Liam Brown
  * @author Jordan Blackadar
- * @version 0.1.2
+ * @version 0.1.5
  * @since 10/8/16
  */
 
@@ -209,6 +209,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
                 JOptionPane frame = new JOptionPane();
                 JOptionPane.showMessageDialog(frame, "Sorry, that didn't work.");
             }
+            programsMode();
         }
     }
 
@@ -269,14 +270,13 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
 
         searched.forEach(this::buildMain);
 
-
         //Add New Main Bar to ScrollPane
         mainScroll = new JScrollPane(mainbar);
         //Configure the ScrollPane
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases Speed of Scroll Bar
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases Speed of Scroll Bar
         this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
@@ -312,7 +312,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases scrollbar speed
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
@@ -341,7 +341,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Increases scrollbar speed
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Increases scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER);
         mainScroll.revalidate();
         this.validate();
@@ -370,7 +370,7 @@ public class SecurOSGui extends JFrame implements ActionListener, KeyListener {
         mainScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         mainScroll.setBounds(50, 30, 300, 50);
-        mainScroll.getVerticalScrollBar().setUnitIncrement(1000); //Changes scrollbar speed
+        mainScroll.getVerticalScrollBar().setUnitIncrement(20); //Changes scrollbar speed
         this.add(mainScroll, BorderLayout.CENTER); //Adds catbar
         mainScroll.revalidate();
         this.validate();
